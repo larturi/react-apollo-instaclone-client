@@ -1,12 +1,15 @@
-import React from 'react';
-
-import { Button } from 'semantic-ui-react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import client from './config/apollo';
+import { ApolloProvider } from '@apollo/client';
+import Auth from './pages/Auth';
 
 export default function App() {
+   const [auth, setAuth] = useState({ name: 'Leandro' });
+
    return (
-      <div className='App'>
-         <h1>Hola</h1>
-         <Button primary>Primary</Button>
-      </div>
+      <ApolloProvider client={client}>
+         {!auth ? <Auth /> : <h1>Estas logueado</h1>}
+      </ApolloProvider>
    );
 }
