@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/client';
 import Auth from './pages/Auth';
 
 export default function App() {
-   const [auth, setAuth] = useState({ name: 'Leandro' });
+   const [auth, setAuth] = useState();
 
    return (
       <ApolloProvider client={client}>
