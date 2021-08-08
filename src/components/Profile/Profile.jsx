@@ -5,6 +5,8 @@ import UserNotFound from '../UserNotFound';
 import { useQuery } from '@apollo/client';
 import { GET_USER } from '../../gql/user';
 import ModalBasic from '../Modals/ModalBasic/ModalBasic';
+import AvatarForm from '../User/AvatarForm';
+import useAuth from '../../hooks/useAuth';
 
 import './Profile.scss';
 
@@ -12,6 +14,10 @@ export default function Profile(props) {
    const { username, name } = props;
 
    const [showModal, setShowModal] = useState(false);
+   const [titleModal, setTitleModal] = useState('');
+   const [childrenModal, setChildrenModal] = useState(null);
+
+   const { auth } = useAuth();
 
    const { data, loading, error } = useQuery(GET_USER, {
       variables: { username },
@@ -22,6 +28,19 @@ export default function Profile(props) {
 
    const { getUser } = data;
 
+   const handleModal = (type) => {
+      switch (type) {
+         case 'avatar':
+            setTitleModal('Cambiar foto de perfil');
+            setChildrenModal(<AvatarForm setShowModal={setShowModal} />);
+            setShowModal(true);
+            break;
+
+         default:
+            break;
+      }
+   };
+
    return (
       <>
          <Grid className='profile'>
@@ -29,7 +48,9 @@ export default function Profile(props) {
                <Image
                   src={imgNotFound}
                   avatar
-                  onClick={() => setShowModal(true)}
+                  onClick={() =>
+                     username === auth.username && handleModal('avatar')
+                  }
                />
             </Grid.Column>
             <Grid.Column width={11} className='profile__right'>
@@ -53,12 +74,8 @@ export default function Profile(props) {
             </Grid.Column>
          </Grid>
 
-         <ModalBasic
-            show={showModal}
-            setShow={setShowModal}
-            title='Subir Avatar'
-         >
-            <p>Opciones...</p>
+         <ModalBasic show={showModal} setShow={setShowModal} title={titleModal}>
+            {childrenModal}
          </ModalBasic>
       </>
    );
