@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Grid, Image } from 'semantic-ui-react';
-import imgNotFound from '../../assets/png/avatar.png';
-import UserNotFound from '../UserNotFound';
+import imgNotFound from '../../../assets/png/avatar.png';
+import UserNotFound from '../../UserNotFound';
 import { useQuery } from '@apollo/client';
-import { GET_USER } from '../../gql/user';
-import ModalBasic from '../Modals/ModalBasic/ModalBasic';
-import AvatarForm from '../User/AvatarForm';
-import useAuth from '../../hooks/useAuth';
+import { GET_USER } from '../../../gql/user';
+import ModalBasic from '../../Modals/ModalBasic/ModalBasic';
+import AvatarForm from '../../User/AvatarForm';
+import useAuth from '../../../hooks/useAuth';
 
 import './Profile.scss';
 
 export default function Profile(props) {
-   const { username, name } = props;
+   const { username } = props;
 
    const [showModal, setShowModal] = useState(false);
    const [titleModal, setTitleModal] = useState('');
@@ -32,7 +32,9 @@ export default function Profile(props) {
       switch (type) {
          case 'avatar':
             setTitleModal('Cambiar foto de perfil');
-            setChildrenModal(<AvatarForm setShowModal={setShowModal} />);
+            setChildrenModal(
+               <AvatarForm setShowModal={setShowModal} auth={auth} />
+            );
             setShowModal(true);
             break;
 
@@ -46,7 +48,7 @@ export default function Profile(props) {
          <Grid className='profile'>
             <Grid.Column width={5} className='profile__left'>
                <Image
-                  src={imgNotFound}
+                  src={getUser.avatar ? getUser.avatar : imgNotFound}
                   avatar
                   onClick={() =>
                      username === auth.username && handleModal('avatar')
