@@ -9,6 +9,8 @@ import AvatarForm from '../../User/AvatarForm';
 import useAuth from '../../../hooks/useAuth';
 
 import './Profile.scss';
+import HeaderProfile from './HeaderProfile';
+import SettingsForm from '../SettingsForm';
 
 export default function Profile(props) {
    const { username } = props;
@@ -38,6 +40,12 @@ export default function Profile(props) {
             setShowModal(true);
             break;
 
+         case 'settings':
+            setTitleModal('');
+            setChildrenModal(<SettingsForm setShowModal={setShowModal} />);
+            setShowModal(true);
+            break;
+
          default:
             break;
       }
@@ -56,7 +64,11 @@ export default function Profile(props) {
                />
             </Grid.Column>
             <Grid.Column width={11} className='profile__right'>
-               <div>HeaderProfile</div>
+               <HeaderProfile
+                  getUser={getUser}
+                  auth={auth}
+                  handleModal={handleModal}
+               />
                <div>Followers</div>
                <div className='other'>
                   <p className='name'>{getUser.name}</p>
