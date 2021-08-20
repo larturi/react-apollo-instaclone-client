@@ -11,6 +11,7 @@ import useAuth from '../../../hooks/useAuth';
 import './Profile.scss';
 import HeaderProfile from './HeaderProfile';
 import SettingsForm from '../SettingsForm';
+import Followers from './Followers';
 
 export default function Profile(props) {
    const { username } = props;
@@ -77,7 +78,7 @@ export default function Profile(props) {
                   auth={auth}
                   handleModal={handleModal}
                />
-               <div>Followers</div>
+               <Followers username={username} />
                <div className='other'>
                   <p className='name'>{getUser.name}</p>
                   {getUser.siteWeb && (
