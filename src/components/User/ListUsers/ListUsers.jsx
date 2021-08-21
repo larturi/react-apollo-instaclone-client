@@ -12,7 +12,7 @@ export default function ListUsers(props) {
 
    const goToUser = (username) => {
       setShowModal(false);
-      histoy.push(`/${username}`);
+      histoy.push(` /${username}`);
    };
 
    return (

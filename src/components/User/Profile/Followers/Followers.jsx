@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { size } from 'lodash';
 import { useQuery } from '@apollo/client';
-import { GET_FOLLOWERS } from '../../../../gql/follow';
+import { GET_FOLLOWERS, GET_FOLLOWEDS } from '../../../../gql/follow';
 import ModalBasic from '../../../../components/Modals/ModalBasic';
 import ListUsers from '../../ListUsers';
 
@@ -22,6 +22,15 @@ export default function Followers(props) {
       variables: { username },
    });
 
+   const {
+      data: dataFolloweds,
+      loading: loadingFolloweds,
+      startPolling: startPollingFolloweds,
+      stopPolling: stopPollingFolloweds,
+   } = useQuery(GET_FOLLOWEDS, {
+      variables: { username },
+   });
+
    useEffect(() => {
       startPollingFollowers(1000);
       return () => {
@@ -29,13 +38,29 @@ export default function Followers(props) {
       };
    }, [startPollingFollowers, stopPollingFollowers]);
 
-   if (loadingFollowers) return null;
+   useEffect(() => {
+      startPollingFolloweds(1000);
+      return () => {
+         stopPollingFolloweds();
+      };
+   }, [startPollingFolloweds, stopPollingFolloweds]);
+
+   if (loadingFollowers || loadingFolloweds) return null;
    const { getFollowers } = dataFollowers;
+   const { getFolloweds } = dataFolloweds;
 
    const openFollowers = () => {
       setTitleModal('Seguidores');
       setChildrenModal(
          <ListUsers users={getFollowers} setShowModal={setShowModal} />
+      );
+      setShowModal(true);
+   };
+
+   const openFolloweds = () => {
+      setTitleModal('Siguiendo');
+      setChildrenModal(
+         <ListUsers users={getFolloweds} setShowModal={setShowModal} />
       );
       setShowModal(true);
    };
@@ -49,8 +74,8 @@ export default function Followers(props) {
             <p className='link' onClick={openFollowers}>
                <span>{size(getFollowers)}</span> seguidores
             </p>
-            <p className='link'>
-               <span>**</span> seguidos
+            <p className='link' onClick={openFolloweds}>
+               <span>{size(getFolloweds)}</span> seguidos
             </p>
          </div>
 
