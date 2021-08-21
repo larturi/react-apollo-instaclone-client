@@ -3,6 +3,7 @@ import { size } from 'lodash';
 import { useQuery } from '@apollo/client';
 import { GET_FOLLOWERS } from '../../../../gql/follow';
 import ModalBasic from '../../../../components/Modals/ModalBasic';
+import ListUsers from '../../ListUsers';
 
 import './Followers.scss';
 
@@ -34,9 +35,7 @@ export default function Followers(props) {
    const openFollowers = () => {
       setTitleModal('Seguidores');
       setChildrenModal(
-         <div>
-            <h3>Lista de seguidores</h3>
-         </div>
+         <ListUsers users={getFollowers} setShowModal={setShowModal} />
       );
       setShowModal(true);
    };
