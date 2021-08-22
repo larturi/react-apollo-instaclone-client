@@ -13,8 +13,11 @@ export default function App() {
 
    useEffect(() => {
       const token = getToken();
+      console.log(decodeToken(token));
       if (!token) {
          setAuth(null);
+      } else if (auth && Date.now() >= auth?.exp) {
+         logout();
       } else {
          setAuth(decodeToken(token));
       }
