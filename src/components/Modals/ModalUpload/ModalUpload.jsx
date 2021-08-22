@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Modal, Icon, Button, Dimmer, Loader } from 'semantic-ui-react';
 import { useDropzone } from 'react-dropzone';
 
@@ -6,10 +6,15 @@ import './ModalUpload.scss';
 
 export default function ModalUpload(props) {
    const { show, setShow } = props;
+   const [fileUpload, setFileUpload] = useState(null);
 
    const onDrop = useCallback((acceptedFile) => {
       const file = acceptedFile[0];
-      console.log(file);
+      setFileUpload({
+         type: 'image',
+         file,
+         preview: URL.createObjectURL(file),
+      });
    });
 
    const { getRootProps, getInputProps } = useDropzone({
@@ -30,11 +35,27 @@ export default function ModalUpload(props) {
          onClose={onClose}
          className='modal-upload'
       >
-         <div {...getRootProps()} className='dropzone'>
-            <Icon name='cloud upload' />
-            <p>Arrastra la foto que quieras publicar</p>
+         <div
+            {...getRootProps()}
+            className='dropzone'
+            style={fileUpload && { border: 0 }}
+         >
+            {!fileUpload && (
+               <>
+                  <Icon name='cloud upload' />
+                  <p>Arrastra la foto que quieras publicar</p>
+               </>
+            )}
+
             <input {...getInputProps()} />
          </div>
+
+         {fileUpload?.type === 'image' && (
+            <div
+               className='image'
+               style={{ backgroundImage: `url(${fileUpload.preview})` }}
+            />
+         )}
       </Modal>
    );
 }
