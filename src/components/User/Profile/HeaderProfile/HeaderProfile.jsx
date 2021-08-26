@@ -18,7 +18,7 @@ export default function HeaderProfile(props) {
    });
 
    const buttonFollow = () => {
-      if (data.isFollow) {
+      if (data?.isFollow) {
          return (
             <Button className='btn-danger' onClick={onUnFollow}>
                Dejar de seguir

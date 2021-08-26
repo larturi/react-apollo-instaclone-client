@@ -14,7 +14,7 @@ import SettingsForm from '../SettingsForm';
 import Followers from './Followers';
 
 export default function Profile(props) {
-   const { username } = props;
+   const { username, totalPublications } = props;
 
    const [showModal, setShowModal] = useState(false);
    const [titleModal, setTitleModal] = useState('');
@@ -78,7 +78,10 @@ export default function Profile(props) {
                   auth={auth}
                   handleModal={handleModal}
                />
-               <Followers username={username} />
+               <Followers
+                  username={username}
+                  totalPublications={totalPublications}
+               />
                <div className='other'>
                   <p className='name'>{getUser.name}</p>
                   {getUser.siteWeb && (
