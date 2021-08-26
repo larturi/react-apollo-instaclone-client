@@ -4,7 +4,7 @@
 </h1>
 
 <h3 align="center">
-  -- Clon de instagram con React, Apollo, GrapQL & Mongo --
+  -- Clon de instagram con React, Apollo, GraphQL & Mongo --
 </h3>
 
 <h5 align="center">
