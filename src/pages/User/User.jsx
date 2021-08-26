@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Profile from '../../components/User/Profile/Profile';
 import { useQuery } from '@apollo/client';
 import { size } from 'lodash';
 import { GET_PUBLICATIONS } from '../../gql/publication';
+import Publications from '../../components/Publications';
 
 export default function User() {
    const { username } = useParams();
 
-   const { data, loading } = useQuery(GET_PUBLICATIONS, {
-      variables: {
-         username,
-      },
-   });
+   const { data, loading, startPolling, stopPolling } = useQuery(
+      GET_PUBLICATIONS,
+      {
+         variables: {
+            username,
+         },
+      }
+   );
+
+   useEffect(() => {
+      startPolling(1000);
+      return () => stopPolling();
+   }, [startPolling, stopPolling]);
 
    if (loading) return null;
    const { getPublications } = data;
@@ -23,6 +32,7 @@ export default function User() {
             username={username}
             totalPublications={size(getPublications)}
          />
+         <Publications getPublications={getPublications} />
       </div>
    );
 }
