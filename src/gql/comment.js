@@ -8,3 +8,15 @@ export const ADD_COMMENT = gql`
       }
    }
 `;
+
+export const GET_COMMENTS = gql`
+   query getComments($idPublication: ID!) {
+      getComments(idPublication: $idPublication) {
+         comment
+         idUser {
+            username
+            avatar
+         }
+      }
+   }
+`;
