@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_LIKE, IS_LIKE } from '../../../../gql/like';
+import { ADD_LIKE, IS_LIKE, DELETE_LIKE } from '../../../../gql/like';
 
 import './Actions.scss';
 
@@ -9,6 +9,7 @@ export default function Actions(props) {
    const { publication } = props;
 
    const [addLike] = useMutation(ADD_LIKE);
+   const [deleteLike] = useMutation(DELETE_LIKE);
 
    const { data, loading, refetch } = useQuery(IS_LIKE, {
       variables: {
@@ -33,7 +34,18 @@ export default function Actions(props) {
       }
    };
 
-   const onDeleteLike = async () => {};
+   const onDeleteLike = async () => {
+      try {
+         await deleteLike({
+            variables: {
+               idPublication: publication.id,
+            },
+         });
+         refetch();
+      } catch (error) {
+         console.error(error);
+      }
+   };
 
    return (
       <div className='actions'>
