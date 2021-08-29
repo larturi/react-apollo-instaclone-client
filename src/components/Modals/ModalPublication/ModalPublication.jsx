@@ -1,6 +1,7 @@
 import { GraphQLList } from 'graphql';
 import React from 'react';
 import { Modal, Grid } from 'semantic-ui-react';
+import Actions from './Actions';
 import CommentForm from './CommentForm';
 import Comments from './Comments';
 
@@ -24,7 +25,7 @@ export default function ModalPublication(props) {
 
             <Grid.Column className='modal-publication__right' width={6}>
                <Comments publication={publication} />
-               <div>Actions</div>
+               <Actions publication={publication} />
                <CommentForm publication={publication} />
             </Grid.Column>
          </Grid>
