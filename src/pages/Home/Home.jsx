@@ -4,6 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import Feed from '../../components/Home/Feed';
 
 import './Home.scss';
+import UsersNotFolloweds from '../../components/Home/UsersNotFolloweds';
 
 export default function Home() {
    const auth = useAuth();
@@ -14,7 +15,7 @@ export default function Home() {
          </Grid.Column>
 
          <Grid.Column className='home__right' width={5}>
-            <h2>Usuarios que no sigues</h2>
+            <UsersNotFolloweds />
          </Grid.Column>
       </Grid>
    );
