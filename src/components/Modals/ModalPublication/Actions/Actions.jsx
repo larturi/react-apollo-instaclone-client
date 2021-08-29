@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { useMutation, useQuery } from '@apollo/client';
 import {
@@ -12,6 +12,8 @@ import './Actions.scss';
 
 export default function Actions(props) {
    const { publication } = props;
+
+   const [loadingAction, setLoadingAction] = useState(false);
 
    const [addLike] = useMutation(ADD_LIKE);
    const [deleteLike] = useMutation(DELETE_LIKE);
@@ -36,6 +38,18 @@ export default function Actions(props) {
 
    const { isLike } = data;
    const { countLikes } = dataCountLikes;
+
+   const onAction = () => {
+      if (!loadingAction) {
+         setLoadingAction(true);
+         if (isLike) {
+            onDeleteLike();
+         } else {
+            onAddLike();
+         }
+         setLoadingAction(false);
+      }
+   };
 
    const onAddLike = async () => {
       try {
@@ -70,7 +84,8 @@ export default function Actions(props) {
          <Icon
             className={isLike ? 'like active' : 'like'}
             name={isLike ? 'heart' : 'heart outline'}
-            onClick={isLike ? onDeleteLike : onAddLike}
+            onClick={onAction}
+            disabled={loadingAction}
          />
          {countLikes} {countLikes === 1 ? 'Like' : 'Likes'}
       </div>
