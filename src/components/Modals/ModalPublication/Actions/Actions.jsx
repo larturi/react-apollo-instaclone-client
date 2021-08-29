@@ -1,7 +1,12 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
 import { useMutation, useQuery } from '@apollo/client';
-import { ADD_LIKE, IS_LIKE, DELETE_LIKE } from '../../../../gql/like';
+import {
+   ADD_LIKE,
+   IS_LIKE,
+   DELETE_LIKE,
+   COUNT_LIKES,
+} from '../../../../gql/like';
 
 import './Actions.scss';
 
@@ -17,9 +22,20 @@ export default function Actions(props) {
       },
    });
 
-   if (loading) return null;
+   const {
+      data: dataCountLikes,
+      loading: loadingCountLikes,
+      refetch: refetchCountLikes,
+   } = useQuery(COUNT_LIKES, {
+      variables: {
+         idPublication: publication.id,
+      },
+   });
+
+   if (loading || loadingCountLikes) return null;
 
    const { isLike } = data;
+   const { countLikes } = dataCountLikes;
 
    const onAddLike = async () => {
       try {
@@ -29,6 +45,7 @@ export default function Actions(props) {
             },
          });
          refetch();
+         refetchCountLikes();
       } catch (error) {
          console.error(error);
       }
@@ -42,6 +59,7 @@ export default function Actions(props) {
             },
          });
          refetch();
+         refetchCountLikes();
       } catch (error) {
          console.error(error);
       }
@@ -54,7 +72,7 @@ export default function Actions(props) {
             name={isLike ? 'heart' : 'heart outline'}
             onClick={isLike ? onDeleteLike : onAddLike}
          />
-         33 Likes
+         {countLikes} {countLikes === 1 ? 'Like' : 'Likes'}
       </div>
    );
 }
