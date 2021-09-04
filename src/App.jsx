@@ -15,20 +15,17 @@ export default function App() {
       const token = getToken();
       try {
          if (!token) {
-            console.log(1);
             logout();
          } else {
             const decodeTkn = decodeToken(token);
             if (Date.now() >= decodeTkn.exp) {
-               console.log(2);
                logout();
             } else {
-               console.log(3);
                setAuth(decodeToken(token));
             }
          }
       } catch (error) {
-         console.log(4);
+         console.log(error);
       }
    }, []);
 
