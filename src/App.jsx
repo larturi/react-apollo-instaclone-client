@@ -13,12 +13,22 @@ export default function App() {
 
    useEffect(() => {
       const token = getToken();
-      if (!token || !auth) {
-         logout();
-      } else if (auth && Date.now() >= auth?.exp) {
-         logout();
-      } else {
-         setAuth(decodeToken(token));
+      try {
+         if (!token) {
+            console.log(1);
+            logout();
+         } else {
+            const decodeTkn = decodeToken(token);
+            if (Date.now() >= decodeTkn.exp) {
+               console.log(2);
+               logout();
+            } else {
+               console.log(3);
+               setAuth(decodeToken(token));
+            }
+         }
+      } catch (error) {
+         console.log(4);
       }
    }, []);
 

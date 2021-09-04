@@ -29,7 +29,6 @@ export default function LoginForm() {
             const { token } = data.loginUser;
             setToken(token);
             setUser(decodeToken(token));
-            toast.success('Bienvenido!');
          } catch (error) {
             setError(error.message);
             toast.error(error.message);
