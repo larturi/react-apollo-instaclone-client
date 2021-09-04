@@ -68,6 +68,7 @@ export default function Feed() {
                show={showModal}
                setShow={setShowModal}
                publication={publicationSelected}
+               setPublicationSelected={setPublicationSelected}
             />
          )}
       </>

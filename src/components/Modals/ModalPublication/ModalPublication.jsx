@@ -7,10 +7,11 @@ import Comments from './Comments';
 import './ModalPublication.scss';
 
 export default function ModalPublication(props) {
-   const { show, setShow, publication } = props;
+   const { show, setShow, publication, setPublicationSelected } = props;
 
    const onClose = () => {
       setShow(false);
+      setPublicationSelected(null);
    };
 
    return (
