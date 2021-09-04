@@ -10,11 +10,21 @@ export default function Home() {
    const auth = useAuth();
    return (
       <Grid className='home'>
-         <Grid.Column className='home__left' width={11}>
+         <Grid.Column
+            className='home__left'
+            mobile={16}
+            tablet={12}
+            computer={11}
+         >
             <Feed />
          </Grid.Column>
 
-         <Grid.Column className='home__right' width={5}>
+         <Grid.Column
+            className='home__right'
+            mobile={16}
+            tablet={4}
+            computer={5}
+         >
             <UsersNotFolloweds />
          </Grid.Column>
       </Grid>

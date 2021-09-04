@@ -19,6 +19,10 @@
     height: 25px;
     border: 1px solid $border-dark;
     padding: 2px;
+
+    @media only screen and (max-width: 767px) { 
+      color: azure;
+    }
   }
 
   i.icon,

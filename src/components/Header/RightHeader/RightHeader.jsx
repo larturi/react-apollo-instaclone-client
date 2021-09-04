@@ -25,9 +25,6 @@ export default function RightHeader() {
    return (
       <>
          <div className='right-header'>
-            <Link to='/'>
-               <Icon name='home' />
-            </Link>
             <Icon name='plus' onClick={() => setShowModal(true)} />
             <Link to={`/${auth.username}`}>
                <Image
