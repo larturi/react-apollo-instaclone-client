@@ -18,7 +18,6 @@ export default function App() {
             logout();
          } else {
             const decodeTkn = decodeToken(token);
-            console.log(Date.now() / 1000, decodeTkn.exp);
             if (Date.now() / 1000 >= decodeTkn.exp) {
                logout();
             } else {
