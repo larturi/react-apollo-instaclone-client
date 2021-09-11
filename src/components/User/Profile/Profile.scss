@@ -7,6 +7,7 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
+    border-radius: 100%;
 
     .ui.image.avatar {
       width: 170px;
@@ -14,6 +15,16 @@
 
       &:hover {
         cursor: pointer;
+      }
+
+      @media only screen and (max-width: 576px) { 
+        width: 110px;
+        height: 110px;
+      }
+
+      @media only screen and (max-width: 420px) { 
+        width: 70px;
+        height: 70px;
       }
     }
   }
@@ -24,6 +35,12 @@
         font-size: 16px;
         margin-bottom: 3px;
         font-weight: bold;
+
+        @media only screen and (max-width: 576px) { 
+          margin-top: 19px;
+          font-size: 14px;
+        }
+
       }
       .bio {
         font-size: 16px;
