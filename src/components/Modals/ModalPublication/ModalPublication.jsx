@@ -11,7 +11,7 @@ export default function ModalPublication(props) {
 
    const onClose = () => {
       setShow(false);
-      setPublicationSelected(null);
+      // setPublicationSelected(null);
    };
 
    return (
