@@ -26,7 +26,7 @@ export default function Feed() {
       };
    }, [startPolling, stopPolling]);
 
-   if (loading) return <p>Cargando publicaciones...</p>;
+   if (loading) return <div className='feed'>Cargando publicaciones...</div>;
 
    const { getPublicationFolloweds } = data;
 
