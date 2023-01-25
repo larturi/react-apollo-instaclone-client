@@ -4,7 +4,7 @@ import { setContext } from 'apollo-link-context';
 import { getToken } from '../utils/token';
 
 const httpLink = createUploadLink({
-   uri: 'https://instaclone-app-server.herokuapp.com/',
+   uri: 'https://apollo-instaclone-server.onrender.com/',
 });
 
 const authLink = setContext((_, { headers }) => {
